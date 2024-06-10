@@ -41,7 +41,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = ElementNotFoundException.class)
-    @ResponseStatus(NOT_FOUND)
+    @ResponseStatus(NOT_FOUND)33
     public ResponseEntity<ErrorResponse> handleException(final ElementNotFoundException e) {
         log.warn(getMessage(e));
         return getResponseEntity(NOT_FOUND, e);

@@ -17,11 +17,9 @@ import java.util.List;
 public class Rule extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String code;
+    private String name;
     private String description;
     @OneToMany(mappedBy = "rule", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Parameter> parameters;
-    @Embedded
-    private String score;
-
 
 }

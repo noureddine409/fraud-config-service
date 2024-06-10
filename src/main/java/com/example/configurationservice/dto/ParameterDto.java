@@ -1,33 +1,27 @@
 package com.example.configurationservice.dto;
 
-import lombok.*;
-
-import java.time.LocalDateTime;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public class ParameterDto extends BaseDto{
 
     private String name;
 
-    private String type;
-
-
-    private String scope;
-
+    private String code;
+    private String value;
+    private String description;
+    private String codeBank;
+    private String countryCode;
+    private String segment;
     private RuleDto rule;
-
-    private ParameterValueDto parameterValue;
-    @Builder
-    public ParameterDto(Long id, LocalDateTime createdAt, LocalDateTime updateAt, String name, String type, String scope, RuleDto rule, ParameterValueDto parameterValue) {
-        super(id, createdAt, updateAt);
-        this.name = name;
-        this.type = type;
-        this.scope = scope;
-        this.rule = rule;
-        this.parameterValue = parameterValue;
-    }
 
 }

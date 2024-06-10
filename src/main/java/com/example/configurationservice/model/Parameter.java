@@ -12,20 +12,17 @@ import lombok.*;
 @Entity
 @Table(name = "parameter")
 public class Parameter extends BaseEntity{
-    @Column(nullable = false, unique = true)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private String type;
-
-    @Enumerated(EnumType.STRING)
-    private String scope;
+    @Column(nullable = false, unique = true)
+    private String code;
+    private String value;
+    private String description;
+    private String codeBank;
+    private String countryCode;
+    private String segment;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Rule rule;
-
-    @Embedded
-    private String parameterValue;
-
 
 }

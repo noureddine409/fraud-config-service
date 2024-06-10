@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface ParameterRepository extends GenericRepository<Parameter> {
 
-    Optional<Parameter> findByName(String name);
+    Optional<Parameter> findByCode(String code);
 }
