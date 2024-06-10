@@ -9,9 +9,7 @@ public class CoreConstant {
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class ExceptionMessage {
-        public static final String DEFAULT = "message.exception.default";
         public static final String NOT_FOUND = "message.exception.not.found.element";
-        public static final String ALREADY_EXISTS = "message.exception.already.exists.element";
         public static final String DATA_INTEGRITY_VIOLATION_SAVE = "message.exception.data.integrity.violation.save";
         public static final String DATA_INTEGRITY_VIOLATION_UPDATE = "message.exception.data.integrity.violation.update";
         public static final String OPTIMISTIC_LOCKING_FAILURE = "message.exception.optimistic.locking.failure";
@@ -28,7 +26,6 @@ public class CoreConstant {
         public static final String DEFAULT_SORT_PROPERTY = "createdAt";
         public static final Sort.Direction DEFAULT_SORT_DIRECTION = Sort.Direction.DESC;
     }
-
 
 
 }

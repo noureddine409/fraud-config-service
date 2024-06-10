@@ -8,6 +8,7 @@ import com.example.configurationservice.dto.RuleSaveDto;
 import com.example.configurationservice.mapper.MapHelper;
 import com.example.configurationservice.model.Rule;
 import com.example.configurationservice.service.RuleService;
+import com.example.configurationservice.validation.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class RuleController {
 
     @GetMapping
     public ResponseEntity<List<RuleDto>> search(@ModelAttribute RuleQuery ruleQuery) {
+        ValidationUtils.validateQuery(ruleQuery);
         final int page = ruleQuery.getPage();
         final int size = ruleQuery.getSize();
         final String code = ruleQuery.getCode();
@@ -35,6 +37,7 @@ public class RuleController {
         return new ResponseEntity<>(mapHelper.convertListToDto(rules, RuleDto.class), HttpStatus.OK);
 
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<RuleDto> getById(@PathVariable("id") Long id) {
         final Rule rule = ruleService.findById(id);
@@ -59,6 +62,6 @@ public class RuleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(ruleService.delete(id),  HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(ruleService.delete(id), HttpStatus.NO_CONTENT);
     }
 }

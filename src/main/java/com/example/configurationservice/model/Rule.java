@@ -3,18 +3,19 @@ package com.example.configurationservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "rule")
-public class Rule extends BaseEntity{
+public class Rule extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String code;
     private String name;

@@ -1,6 +1,7 @@
 package com.example.configurationservice.exception.handler;
 
 
+import com.example.configurationservice.dto.ErrorResponse;
 import com.example.configurationservice.exception.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,7 +28,7 @@ import static org.springframework.http.HttpStatus.*;
 @Slf4j
 @AllArgsConstructor
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    /*private final MessageSource messageSource;
+    private final MessageSource messageSource;
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(@NotNull HttpMessageNotReadableException ex, @NonNull HttpHeaders headers, @NonNull HttpStatusCode status, @NonNull WebRequest request) {
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = ElementNotFoundException.class)
-    @ResponseStatus(NOT_FOUND)33
+    @ResponseStatus(NOT_FOUND)
     public ResponseEntity<ErrorResponse> handleException(final ElementNotFoundException e) {
         log.warn(getMessage(e));
         return getResponseEntity(NOT_FOUND, e);
@@ -109,7 +109,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private @NotNull String getMessage(final @NotNull BusinessException e) {
         return messageSource.getMessage(e.getKey(), e.getArgs(), null);
     }
-*/
 
 }
 
