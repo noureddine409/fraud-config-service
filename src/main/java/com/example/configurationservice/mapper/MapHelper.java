@@ -1,7 +1,6 @@
 package com.example.configurationservice.mapper;
 
 
-
 import com.example.configurationservice.dto.BaseDto;
 import com.example.configurationservice.model.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -15,10 +14,6 @@ import java.util.List;
 public class MapHelper {
 
     private final ModelMapper modelMapper;
-
-    public <T extends BaseEntity, D extends BaseDto> T convertToEntity(D source, Class<T> targetClass) {
-        return modelMapper.map(source, targetClass);
-    }
 
     public <T extends BaseEntity, D extends BaseDto> D convertToDto(T source, Class<D> targetClass) {
         return modelMapper.map(source, targetClass);
