@@ -16,6 +16,6 @@ import java.time.LocalDateTime;
 public class BaseDto {
     private Long id;
     private LocalDateTime createdAt;
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
     private String createdBy;
 }

@@ -9,6 +9,7 @@ import com.example.configurationservice.mapper.MapHelper;
 import com.example.configurationservice.model.Rule;
 import com.example.configurationservice.service.RuleService;
 import com.example.configurationservice.validation.ValidationUtils;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,7 @@ public class RuleController {
     }
 
     @PostMapping
-    public ResponseEntity<RuleDto> save(@RequestBody RuleSaveDto ruleDto) {
+    public ResponseEntity<RuleDto> save(@RequestBody @Valid RuleSaveDto ruleDto) {
         final Rule ruleEntity = mapHelper.map(ruleDto, Rule.class);
         final Rule savedRule = ruleService.save(ruleEntity);
         final RuleDto ruleResponse = mapHelper.convertToDto(savedRule, RuleDto.class);
@@ -54,7 +55,7 @@ public class RuleController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<RuleDto> getById(@PathVariable("id") Long id, RulePatchDto patch) {
+    public ResponseEntity<RuleDto> getById(@PathVariable("id") Long id, @RequestBody @Valid RulePatchDto patch) {
         final Rule updatedRule = ruleService.partialUpdate(id, patch);
         final RuleDto ruleResponse = mapHelper.convertToDto(updatedRule, RuleDto.class);
         return new ResponseEntity<>(ruleResponse, HttpStatus.OK);

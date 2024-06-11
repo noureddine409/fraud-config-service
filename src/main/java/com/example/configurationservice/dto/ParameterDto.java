@@ -1,6 +1,5 @@
 package com.example.configurationservice.dto;
 
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class ParameterDto extends BaseDto{
+public class ParameterDto extends BaseDto {
 
     private String name;
 
