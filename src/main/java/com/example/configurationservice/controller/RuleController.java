@@ -24,7 +24,7 @@ public class RuleController {
     private final RuleService ruleService;
     private final MapHelper mapHelper;
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<List<RuleDto>> search(@ModelAttribute RuleQuery ruleQuery) {
         ValidationUtils.validateQuery(ruleQuery);
         final int page = ruleQuery.getPage();
