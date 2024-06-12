@@ -9,4 +9,5 @@ public interface RuleService extends GenericService<Rule> {
 
     List<Rule> search(String name, String code, int page, int size);
 
+    Rule findByCode(String code);
 }
