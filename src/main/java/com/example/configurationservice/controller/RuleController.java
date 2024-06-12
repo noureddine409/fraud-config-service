@@ -65,4 +65,11 @@ public class RuleController {
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
         return new ResponseEntity<>(ruleService.delete(id), HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/code/{code}")
+    public ResponseEntity<RuleDto> getByCode(@PathVariable("code") String code) {
+        final Rule rule = ruleService.findByCode(code);
+        final RuleDto ruleDto = mapHelper.convertToDto(rule, RuleDto.class);
+        return ResponseEntity.ok(ruleDto);
+    }
 }
