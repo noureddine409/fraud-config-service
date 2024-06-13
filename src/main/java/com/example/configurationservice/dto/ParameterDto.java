@@ -21,6 +21,5 @@ public class ParameterDto extends BaseDto {
     private String codeBank;
     private String countryCode;
     private String segment;
-    private RuleDto rule;
 
 }

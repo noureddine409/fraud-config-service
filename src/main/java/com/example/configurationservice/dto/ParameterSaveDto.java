@@ -21,7 +21,7 @@ public class ParameterSaveDto {
     @Size(min = 10, max = 500, message = "Description must be between 10 and 500 characters")
     private String description;
     @NotBlank(message = "RuleCode cannot be blank")
-    @Size(min = 10, max = 500, message = "RuleCode must be between 10 and 500 characters")
+    @Size(min = 3, max = 50, message = "RuleCode must be between 10 and 500 characters")
     @Pattern(regexp = "^[A-Z0-9_-]+$", message = "RuleCode must be uppercase alphanumeric with underscores or dashes")
     private String ruleCode;
 
