@@ -1,7 +1,9 @@
 package com.example.configurationservice.exception.handler;
 
 
+import ch.qos.logback.core.util.StringUtil;
 import com.example.configurationservice.dto.ErrorResponse;
+import com.example.configurationservice.dto.ValidationResponse;
 import com.example.configurationservice.exception.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,7 +24,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -39,6 +45,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                         .message(ex.getMessage().split(":")[0])
                         .build());
     }
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        List<ValidationResponse> validations = ex.getBindingResult().getFieldErrors().stream()
+                .map(fieldError -> ValidationResponse.builder()
+                        .field(fieldError.getField())
+                        .message(getMessage(fieldError))
+                        .build())
+                .collect(Collectors.toList());
+        return ResponseEntity.badRequest().body(validations);
+    }
+
+    private String getMessage(final FieldError fieldError) {
+        return !StringUtil.isNullOrEmpty(fieldError.getDefaultMessage()) ? fieldError.getDefaultMessage() :
+                messageSource.getMessage(Objects.requireNonNull(fieldError.getCode()), fieldError.getArguments(), null);
+        }
+
 
     @ExceptionHandler(value = ElementNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
@@ -62,7 +84,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = DataIntegrityException.class)
-    @ResponseStatus(BAD_REQUEST)
+    @ResponseStatus(FOUND)
     public ResponseEntity<ErrorResponse> handleException(final DataIntegrityException e) {
         log.warn(getMessage(e));
         return getResponseEntity(FOUND, e);

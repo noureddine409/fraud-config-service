@@ -11,9 +11,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class ParameterQuery extends BaseQuery{
-    private String name;
+public class ParameterQuery extends BaseQuery {
     private String code;
 
-
+    private String ruleCode;
 }

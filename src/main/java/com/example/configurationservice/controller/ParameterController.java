@@ -4,6 +4,7 @@ package com.example.configurationservice.controller;
 import com.example.configurationservice.dto.*;
 import com.example.configurationservice.mapper.MapHelper;
 import com.example.configurationservice.model.Parameter;
+import com.example.configurationservice.model.Rule;
 import com.example.configurationservice.service.ParameterService;
 import com.example.configurationservice.service.RuleService;
 import jakarta.validation.Valid;
@@ -33,14 +34,17 @@ public class ParameterController {
 
     @PostMapping
     public ResponseEntity<ParameterDto> save(@RequestBody @Valid ParameterSaveDto parameterDto) {
+        final String ruleCode = parameterDto.getRuleCode();
+        Rule rule = ruleService.findByCode(ruleCode);
         final Parameter parameterEntity = mapHelper.map(parameterDto, Parameter.class);
+        parameterEntity.setRule(rule);
         final Parameter savedParameter = parameterService.save(parameterEntity);
         final ParameterDto parameterResponse = mapHelper.convertToDto(savedParameter, ParameterDto.class);
         return new ResponseEntity<>(parameterResponse, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ParameterDto> getById(@PathVariable("id") Long id, @RequestBody @Valid ParameterPatchDto patch) {
+    public ResponseEntity<ParameterDto> update(@PathVariable("id") Long id, @RequestBody @Valid ParameterPatchDto patch) {
         final Parameter updatedParameter = parameterService.partialUpdate(id, patch);
         final ParameterDto parameterResponse = mapHelper.convertToDto(updatedParameter, ParameterDto.class);
         return new ResponseEntity<>(parameterResponse, HttpStatus.OK);
@@ -49,12 +53,5 @@ public class ParameterController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
         return new ResponseEntity<>(parameterService.delete(id), HttpStatus.NO_CONTENT);
-    }
-
-    @GetMapping("/code/{code}")
-    public ResponseEntity<ParameterDto> getByCode(@PathVariable("code") String code) {
-        final Parameter parameter = parameterService.findByCode(code);
-        final ParameterDto parameterDto = mapHelper.convertToDto(parameter, ParameterDto.class);
-        return ResponseEntity.ok(parameterDto);
     }
 }

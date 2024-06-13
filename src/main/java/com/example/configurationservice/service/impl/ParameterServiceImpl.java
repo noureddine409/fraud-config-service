@@ -8,6 +8,8 @@ import com.example.configurationservice.service.ParameterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class ParameterServiceImpl extends GenericServiceImpl<Parameter> implements ParameterService {
@@ -19,4 +21,13 @@ public class ParameterServiceImpl extends GenericServiceImpl<Parameter> implemen
         this.parameterRepository = parameterRepository;
     }
 
+    @Override
+    public List<Parameter> search(String name, String code, int page, int size) {
+        return null;
+    }
+
+    @Override
+    public Parameter findByCode(String code) {
+        return null;
+    }
 }

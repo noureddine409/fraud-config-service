@@ -55,7 +55,6 @@ public class GenericServiceImpl<T extends BaseEntity> implements GenericService<
         try {
             return genericRepository.save(entity);
         } catch (final DataIntegrityViolationException e) {
-            e.printStackTrace();
             log.warn("Error saving entity: Data integrity violation {}", entity);
             throw new DataIntegrityException(e, DATA_INTEGRITY_VIOLATION_SAVE, new Object[]{entity.toString()});
         } catch (final DataAccessException e) {
