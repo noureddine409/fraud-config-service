@@ -7,8 +7,5 @@ import java.util.List;
 
 
 public interface ParameterService extends GenericService<Parameter> {
-    List<Parameter> search(String name, String code, int page, int size);
-
-    Parameter findByCode(String code);
-
+    List<Parameter> search(String ruleCode, String parameterCode, int page, int size);
 }

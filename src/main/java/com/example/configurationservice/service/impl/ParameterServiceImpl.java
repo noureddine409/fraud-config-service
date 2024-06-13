@@ -6,6 +6,8 @@ import com.example.configurationservice.repository.GenericRepository;
 import com.example.configurationservice.repository.ParameterRepository;
 import com.example.configurationservice.service.ParameterService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +24,8 @@ public class ParameterServiceImpl extends GenericServiceImpl<Parameter> implemen
     }
 
     @Override
-    public List<Parameter> search(String name, String code, int page, int size) {
-        return null;
-    }
-
-    @Override
-    public Parameter findByCode(String code) {
-        return null;
+    public List<Parameter> search(String ruleCode, String parameterCode, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return parameterRepository.findByRule_CodeAndCodeContainingIgnoreCase(ruleCode, parameterCode, pageable);
     }
 }

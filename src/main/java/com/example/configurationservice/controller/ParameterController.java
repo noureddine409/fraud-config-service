@@ -1,16 +1,22 @@
 package com.example.configurationservice.controller;
 
 
-import com.example.configurationservice.dto.*;
+import com.example.configurationservice.dto.ParameterDto;
+import com.example.configurationservice.dto.ParameterPatchDto;
+import com.example.configurationservice.dto.ParameterQuery;
+import com.example.configurationservice.dto.ParameterSaveDto;
 import com.example.configurationservice.mapper.MapHelper;
 import com.example.configurationservice.model.Parameter;
 import com.example.configurationservice.model.Rule;
 import com.example.configurationservice.service.ParameterService;
 import com.example.configurationservice.service.RuleService;
+import com.example.configurationservice.validation.ValidationUtils;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/parameters")
@@ -30,6 +36,18 @@ public class ParameterController {
         final Parameter parameter = parameterService.findById(id);
         final ParameterDto parameterDto = mapHelper.convertToDto(parameter, ParameterDto.class);
         return ResponseEntity.ok(parameterDto);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ParameterDto>> search(@ModelAttribute ParameterQuery parameterQuery) {
+        ValidationUtils.validateQuery(parameterQuery);
+        final int page = parameterQuery.getPage();
+        final int size = parameterQuery.getSize();
+        final String code = parameterQuery.getCode();
+        final String ruleCode = parameterQuery.getRuleCode();
+
+        List<Parameter> parameters = parameterService.search(ruleCode, code, page, size);
+        return new ResponseEntity<>(mapHelper.convertListToDto(parameters, ParameterDto.class), HttpStatus.OK);
     }
 
     @PostMapping
