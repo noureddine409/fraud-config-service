@@ -55,7 +55,7 @@ public class RuleController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<RuleDto> getById(@PathVariable("id") Long id, @RequestBody @Valid RulePatchDto patch) {
+    public ResponseEntity<RuleDto> update(@PathVariable("id") Long id, @RequestBody @Valid RulePatchDto patch) {
         final Rule updatedRule = ruleService.partialUpdate(id, patch);
         final RuleDto ruleResponse = mapHelper.convertToDto(updatedRule, RuleDto.class);
         return new ResponseEntity<>(ruleResponse, HttpStatus.OK);

@@ -24,6 +24,7 @@ public class Parameter extends BaseEntity{
     private String segment;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @ToString.Exclude
     private Rule rule;
 
 }
