@@ -16,4 +16,6 @@ public class ParameterPatchDto {
     private String value;
     @Size(min = 10, max = 500, message = "Description must be between 10 and 500 characters")
     private String description;
+    private String codeBank;
+    private String segment;
 }

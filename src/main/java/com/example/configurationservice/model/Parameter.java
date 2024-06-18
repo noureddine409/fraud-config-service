@@ -15,12 +15,11 @@ import lombok.experimental.SuperBuilder;
 public class Parameter extends BaseEntity{
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String code;
     private String value;
     private String description;
     private String codeBank;
-    private String countryCode;
     private String segment;
 
     @ManyToOne(fetch = FetchType.EAGER)
