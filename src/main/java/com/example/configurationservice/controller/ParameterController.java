@@ -38,7 +38,15 @@ public class ParameterController {
         return ResponseEntity.ok(parameterDto);
     }
 
-    @GetMapping("/search")
+    @GetMapping
+    public ResponseEntity<List<ParameterDto>> getAll() {
+        var params = parameterService.findAll(0, 10);
+        return new ResponseEntity<>(mapHelper.convertListToDto(params, ParameterDto.class), HttpStatus.OK);
+
+    }
+
+
+        @GetMapping("/search")
     public ResponseEntity<List<ParameterDto>> search(@ModelAttribute ParameterQuery parameterQuery) {
         ValidationUtils.validateQuery(parameterQuery);
         final int page = parameterQuery.getPage();
